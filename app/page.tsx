@@ -8,7 +8,7 @@ export default function Page() {
   const [refresh, setRefresh] = useState(0);
 
   return (
-    <div className="min-h-screen bg-[#CDB296] flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen flex flex-col items-center py-10 px-4">
       {/* HEADER */}
       <div className="flex flex-col items-center text-center mb-10">
         <img
