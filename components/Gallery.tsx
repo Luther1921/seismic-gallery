@@ -106,30 +106,36 @@ export default function Gallery() {
       {deleteTarget && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full">
-            <h2 className="text-lg font-semibold mb-4 text-center">
+            <h2 className="text-lg font-bold text-gray-900 mb-4 text-center">
               Confirm Deletion
             </h2>
-            <p className="text-sm text-gray-600 mb-3 text-center">
-              To delete this artwork by <b>{deleteTarget.username}</b>, please
-              type the username below:
+
+            <p className="text-sm text-gray-700 mb-3 text-center">
+              To delete this artwork by{" "}
+              <span className="font-semibold text-gray-900">
+                {deleteTarget.username}
+              </span>
+              , please type the username below:
             </p>
+
             <input
               type="text"
               value={confirmUsername}
               onChange={(e) => setConfirmUsername(e.target.value)}
-              className="w-full border px-3 py-2 rounded mb-4"
+              className="w-full border px-3 py-2 rounded mb-4 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter username to confirm"
             />
-            <div className="flex justify-between">
+
+            <div className="flex justify-between gap-2">
               <button
                 onClick={() => setDeleteTarget(null)}
-                className="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 transition"
+                className="flex-1 px-4 py-2 rounded-lg bg-gray-300 text-gray-800 font-medium hover:bg-gray-400 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
+                className="flex-1 px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 focus:ring-2 focus:ring-red-400 transition"
               >
                 Delete
               </button>
@@ -143,30 +149,6 @@ export default function Gallery() {
           {toastMessage}
         </div>
       )}
-
-      <style jsx>{`
-        .animate-fade-in {
-          animation: fadeInOut 3s ease-in-out forwards;
-        }
-        @keyframes fadeInOut {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          10% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          90% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-        }
-      `}</style>
     </>
   );
 }

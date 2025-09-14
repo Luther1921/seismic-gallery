@@ -80,7 +80,7 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
       onSubmit={handleUpload}
       className="bg-white p-4 rounded-2xl shadow-md w-full max-w-4xl"
     >
-      <h2 className="text-lg font-semibold mb-3 text-gray-700">
+      <h2 className="text-base sm:text-lg font-semibold mb-3 text-gray-700 text-center sm:text-left">
         Upload Your Art
       </h2>
 
@@ -91,9 +91,10 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
           placeholder="Enter your X username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border rounded px-3 py-2 flex-1 min-w-[150px]"
+          className="border rounded px-3 py-2 flex-1 min-w-[150px] text-sm sm:text-base"
         />
 
+        {/* Drag & Drop Zone */}
         <div
           onDragOver={(e) => {
             e.preventDefault();
@@ -107,9 +108,11 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
           onClick={() => document.getElementById("fileInput")?.click()}
         >
           {file ? (
-            <p className="text-sm text-gray-700 truncate">✅ {file.name}</p>
+            <p className="text-xs sm:text-sm text-gray-700 truncate">
+              ✅ {file.name}
+            </p>
           ) : (
-            <p className="text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500">
               Drag & drop or{" "}
               <span className="text-blue-600 underline">browse</span>
             </p>
@@ -123,15 +126,17 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
           />
         </div>
 
+        {/* Upload Button */}
         <button
           type="submit"
           disabled={uploading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px]"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px] text-sm sm:text-base"
         >
           {uploading ? "Uploading..." : "Upload"}
         </button>
       </div>
 
+      {/* Error Message */}
       {errorMessage && (
         <p className="text-red-600 text-sm mt-2 text-center">{errorMessage}</p>
       )}
