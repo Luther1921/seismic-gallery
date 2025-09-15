@@ -93,9 +93,11 @@ export default function Gallery() {
               </a>
             </div>
 
+            {/* Delete button - always visible on mobile */}
             <button
               onClick={() => confirmDelete(art)}
-              className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md
+                         opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300"
             >
               Delete
             </button>

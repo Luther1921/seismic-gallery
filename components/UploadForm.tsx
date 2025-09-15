@@ -80,21 +80,21 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
       onSubmit={handleUpload}
       className="bg-white p-4 rounded-2xl shadow-md w-full max-w-4xl"
     >
-      <h2 className="text-base sm:text-lg font-semibold mb-3 text-gray-700 text-center sm:text-left">
+      <h2 className="text-lg font-semibold mb-3 text-gray-700">
         Upload Your Art
       </h2>
 
       <div className="flex flex-col sm:flex-row gap-3 items-center">
-        {/* Username Input */}
+       
         <input
           type="text"
           placeholder="Enter your X username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border rounded px-3 py-2 flex-1 min-w-[150px] text-sm sm:text-base"
+          className="border rounded px-3 py-2 flex-1 min-w-[150px] text-black placeholder:text-gray-600"
         />
 
-        {/* Drag & Drop Zone */}
+       
         <div
           onDragOver={(e) => {
             e.preventDefault();
@@ -108,11 +108,9 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
           onClick={() => document.getElementById("fileInput")?.click()}
         >
           {file ? (
-            <p className="text-xs sm:text-sm text-gray-700 truncate">
-              ✅ {file.name}
-            </p>
+            <p className="text-sm text-gray-700 truncate">✅ {file.name}</p>
           ) : (
-            <p className="text-xs sm:text-sm text-gray-500">
+            <p className="text-sm text-gray-500">
               Drag & drop or{" "}
               <span className="text-blue-600 underline">browse</span>
             </p>
@@ -130,13 +128,12 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
         <button
           type="submit"
           disabled={uploading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px] text-sm sm:text-base"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px]"
         >
           {uploading ? "Uploading..." : "Upload"}
         </button>
       </div>
 
-      {/* Error Message */}
       {errorMessage && (
         <p className="text-red-600 text-sm mt-2 text-center">{errorMessage}</p>
       )}
