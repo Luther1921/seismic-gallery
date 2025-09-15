@@ -13,6 +13,7 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +62,10 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
       setFile(null);
       setUsername("");
       onUpload();
+
+      // ✅ Show success toast
+      setToastMessage("Artwork uploaded successfully ✅");
+      setTimeout(() => setToastMessage(""), 3000);
     } finally {
       setUploading(false);
     }
@@ -76,67 +81,76 @@ export default function UploadForm({ onUpload }: UploadFormProps) {
   };
 
   return (
-    <form
-      onSubmit={handleUpload}
-      className="bg-white p-4 rounded-2xl shadow-md w-full max-w-4xl"
-    >
-      <h2 className="text-lg font-semibold mb-3 text-gray-700">
-        Upload Your Art
-      </h2>
+    <>
+      <form
+        onSubmit={handleUpload}
+        className="bg-white p-4 rounded-2xl shadow-md w-full max-w-4xl"
+      >
+        <h2 className="text-lg font-semibold mb-3 text-gray-700">
+          Upload Your Art
+        </h2>
 
-      <div className="flex flex-col sm:flex-row gap-3 items-center">
-       
-        <input
-          type="text"
-          placeholder="Enter your X username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border rounded px-3 py-2 flex-1 min-w-[150px] text-black placeholder:text-gray-600"
-        />
-
-       
-        <div
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={() => setDragActive(false)}
-          onDrop={handleDrop}
-          className={`border-2 border-dashed rounded-lg px-4 py-2 text-center cursor-pointer flex-1 min-w-[200px] transition ${
-            dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
-          }`}
-          onClick={() => document.getElementById("fileInput")?.click()}
-        >
-          {file ? (
-            <p className="text-sm text-gray-700 truncate">✅ {file.name}</p>
-          ) : (
-            <p className="text-sm text-gray-500">
-              Drag & drop or{" "}
-              <span className="text-blue-600 underline">browse</span>
-            </p>
-          )}
+        <div className="flex flex-col sm:flex-row gap-3 items-center">
+          {/* Username Input */}
           <input
-            id="fileInput"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            type="text"
+            placeholder="Enter your X username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="border rounded px-3 py-2 flex-1 min-w-[150px] text-gray-900 placeholder-gray-500"
           />
+
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDragActive(true);
+            }}
+            onDragLeave={() => setDragActive(false)}
+            onDrop={handleDrop}
+            className={`border-2 border-dashed rounded-lg px-4 py-2 text-center cursor-pointer flex-1 min-w-[200px] transition ${
+              dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
+            }`}
+            onClick={() => document.getElementById("fileInput")?.click()}
+          >
+            {file ? (
+              <p className="text-sm text-gray-700 truncate">✅ {file.name}</p>
+            ) : (
+              <p className="text-sm text-gray-500">
+                Drag & drop or{" "}
+                <span className="text-blue-600 underline">browse</span>
+              </p>
+            )}
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={uploading}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px]"
+          >
+            {uploading ? "Uploading..." : "Upload"}
+          </button>
         </div>
 
-        {/* Upload Button */}
-        <button
-          type="submit"
-          disabled={uploading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 min-w-[120px]"
-        >
-          {uploading ? "Uploading..." : "Upload"}
-        </button>
-      </div>
+        {errorMessage && (
+          <p className="text-red-600 text-sm mt-2 text-center">
+            {errorMessage}
+          </p>
+        )}
+      </form>
 
-      {errorMessage && (
-        <p className="text-red-600 text-sm mt-2 text-center">{errorMessage}</p>
+      {/* ✅ Success Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md animate-fade-in">
+          {toastMessage}
+        </div>
       )}
-    </form>
+    </>
   );
 }
